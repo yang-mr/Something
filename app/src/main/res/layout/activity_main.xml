@@ -1,37 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.DrawerLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/com.jack.root.something"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawerlayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.jack.root.something.ui.MainActivity">
-    <LinearLayout
-        android:orientation="vertical"
-        android:id="@+id/layout_content"
+    tools:context="com.jack.root.something.ui.MainActivity"
+    tools:openDrawer="start">
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
-            app:layout_scrollFlags="scroll|enterAlways"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            android:background="@color/colorPrimary"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:text="我是内容"
-            android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
+            android:layout_height="wrap_content"
+            app:layout_scrollFlags="scroll|enterAlways"
+            android:background="@color/colorPrimary">
+            <ImageView
+                android:id="@+id/iv_switch"
+                android:src="@drawable/nav"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/textview"
+                android:text="title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center" />
+        </android.support.v7.widget.Toolbar>
+    </RelativeLayout>
     <android.support.design.widget.NavigationView
-        android:fitsSystemWindows="true"
-        android:layout_gravity="left"
         android:id="@+id/navigationview"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
         app:headerLayout="@layout/drawer_header"
-        app:menu="@menu/drawer_menu"
-        android:layout_marginRight="100dp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        app:menu="@menu/drawer_menu" />
 </android.support.v4.widget.DrawerLayout>

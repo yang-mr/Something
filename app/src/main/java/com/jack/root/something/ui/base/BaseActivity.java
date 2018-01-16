@@ -11,8 +11,7 @@ import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
 public class BaseActivity extends AppCompatActivity {
-    @ViewInject(R.id.toolbar)
-    public Toolbar mToolbar;
+
 
     private ImmersionBar mImmersionBar;
 
@@ -21,12 +20,12 @@ public class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         x.view().inject(this);
 
-        ImmersionBar.with(this)
-                .fitsSystemWindows(true)  //使用该属性,必须指定状态栏颜色
-                .statusBarColor(R.color.colorPrimary)
-                .init();
+//        mImmersionBar = ImmersionBar.with(this);
+//        mImmersionBar.fitsSystemWindows(true)  //使用该属性,必须指定状态栏颜色
+//                .statusBarColor(R.color.colorPrimary)
+//                .init();
 
-        setSupportActionBar(mToolbar);
+       // setSupportActionBar(mToolbar);
         handleToolbar();
     }
 
