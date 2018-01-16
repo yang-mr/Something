@@ -18,7 +18,6 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        x.view().inject(this);
 
 //        mImmersionBar = ImmersionBar.with(this);
 //        mImmersionBar.fitsSystemWindows(true)  //使用该属性,必须指定状态栏颜色

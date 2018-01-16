@@ -12,18 +12,19 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jack.root.something.R;
 import com.jack.root.something.ui.base.BaseActivity;
+import com.orhanobut.logger.Logger;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
-
-import java.util.logging.Logger;
 
 @ContentView(R.layout.activity_main)
 public class MainActivity extends BaseActivity {
@@ -34,7 +35,7 @@ public class MainActivity extends BaseActivity {
     @ViewInject(R.id.toolbar)
     public Toolbar mToolbar;
     @ViewInject(R.id.iv_switch)
-    public ImageView mIvSwitch; // navigation switch
+    public TextView mIvSwitch; // navigation switch
 
     private final static int TYPE_OPEN_DRAWER = 1;
     private final static int TYPE_CLOSE_DRAWER = 0;
@@ -42,23 +43,11 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        x.view().inject(this);
 
         setSupportActionBar(mToolbar);
+        getSupportActionBar().setTitle("");
         init();
-    }
-
-    @Override
-    public void handleToolbar() {
-        super.handleToolbar();
-
-        mToolbar.setNavigationIcon(R.mipmap.ic_launcher);
-        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
     }
 
     private void init() {
@@ -78,7 +67,6 @@ public class MainActivity extends BaseActivity {
             }
         });
 
-
         // View headerView = mNavigationView.inflateHeaderView(R.layout.drawer_header);
 
         //获取navigationView的头部布局和里面的控件
@@ -96,15 +84,14 @@ public class MainActivity extends BaseActivity {
         mIvSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mNavigationView.isShown();
-                if (getDrawerStatue()) {
+                if (!mDrawerlayout.isDrawerOpen(mNavigationView)) {
                     // close drawer
-                    mDrawerlayout.closeDrawer(mNavigationView);
-                    showAnimator(TYPE_CLOSE_DRAWER);
-                } else {
-                    // open drawer
-                    mDrawerlayout.openDrawer(mNavigationView);
-                    showAnimator(TYPE_OPEN_DRAWER);
+                    showAnimator(TYPE_OPEN_DRAWER, new OnListenerByAnimationEnd() {
+                        @Override
+                        public void onAnimationEnd() {
+                            mDrawerlayout.openDrawer(mNavigationView);
+                        }
+                    });
                 }
             }
         });
@@ -112,7 +99,7 @@ public class MainActivity extends BaseActivity {
         mDrawerlayout.addDrawerListener(new DrawerLayout.DrawerListener() {
             @Override
             public void onDrawerSlide(View drawerView, float slideOffset) {
-                com.orhanobut.logger.Logger.d(slideOffset);
+                Logger.d(slideOffset);
             }
 
             @Override
@@ -122,7 +109,7 @@ public class MainActivity extends BaseActivity {
 
             @Override
             public void onDrawerClosed(View drawerView) {
-
+                showAnimator(TYPE_CLOSE_DRAWER);
             }
 
             @Override
@@ -145,25 +132,47 @@ public class MainActivity extends BaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private boolean getDrawerStatue() {
-        return mDrawerlayout.isDrawerOpen(mNavigationView);
+    private void showAnimator(int type) {
+        showAnimator(type, null);
     }
 
-    private void showAnimator(int type) {
+    private void showAnimator(int type, final OnListenerByAnimationEnd onListenerByAnimationEnd) {
         RotateAnimation animation;
         switch (type) {
             case TYPE_OPEN_DRAWER:
-                animation = new RotateAnimation(0, 90);
-                animation.setDuration(2000);
+                animation = new RotateAnimation(0, 90, Animation.RELATIVE_TO_SELF, 0.5F, Animation.RELATIVE_TO_SELF, 0.5F);
+                animation.setDuration(1000);
                 animation.setFillAfter(true);
+                animation.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        if (onListenerByAnimationEnd != null) {
+                            onListenerByAnimationEnd.onAnimationEnd();
+                        }
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+
+                    }
+                });
                 mIvSwitch.startAnimation(animation);
                 break;
             case TYPE_CLOSE_DRAWER:
-                animation = new RotateAnimation(0, -90);
-                animation.setDuration(2000);
+                animation = new RotateAnimation(90, 0, Animation.RELATIVE_TO_SELF, 0.5F, Animation.RELATIVE_TO_SELF, 0.5F);
+                animation.setDuration(1000);
                 animation.setFillAfter(true);
                 mIvSwitch.startAnimation(animation);
                 break;
         }
+    }
+
+    private interface OnListenerByAnimationEnd {
+       void onAnimationEnd();
     }
 }

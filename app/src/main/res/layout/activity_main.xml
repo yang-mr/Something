@@ -16,9 +16,9 @@
             android:layout_height="wrap_content"
             app:layout_scrollFlags="scroll|enterAlways"
             android:background="@color/colorPrimary">
-            <ImageView
+            <TextView
                 android:id="@+id/iv_switch"
-                android:src="@drawable/nav"
+                android:drawableRight="@drawable/nav"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView
