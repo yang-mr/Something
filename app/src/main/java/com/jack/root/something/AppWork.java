@@ -2,12 +2,16 @@ package com.jack.root.something;
 
 import android.app.Application;
 
+import com.jack.root.something.db.DbManager;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.FormatStrategy;
 import com.orhanobut.logger.Logger;
 import com.orhanobut.logger.PrettyFormatStrategy;
 
 import org.xutils.x;
+
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
 
 /**
  * Created by jackyang on 18-1-15.
@@ -26,6 +30,16 @@ public class AppWork extends Application {
     private void init() {
         x.Ext.init(this);   // init xutils
         initLog();
+        initRealm();
+    }
+
+    private void initRealm() {
+        Realm.init(this);
+        RealmConfiguration configuration=new RealmConfiguration.Builder()
+                .name(DbManager.DB_NAME)
+                .deleteRealmIfMigrationNeeded()
+                .build();
+        Realm.setDefaultConfiguration(configuration);
     }
 
     private void initLog() {
