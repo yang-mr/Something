@@ -18,6 +18,8 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,6 +48,13 @@ public class MainActivity extends BaseActivity {
 
     @ViewInject(R.id.viewpager_main)
     private ViewPager mViewPager;
+
+    @ViewInject(R.id.radiogroup_main)
+    private RadioGroup mRadioGroup;
+    @ViewInject(R.id.rb_memo)
+    private RadioButton mRadioButtonMemo;
+    @ViewInject(R.id.rb_note)
+    private RadioButton mRadioButtonNote;
 
     private final static int TYPE_OPEN_DRAWER = 1;
     private final static int TYPE_CLOSE_DRAWER = 0;
@@ -135,6 +144,22 @@ public class MainActivity extends BaseActivity {
             @Override
             public void transformPage(View page, float position) {
                 // await test
+                Logger.d("viewPager transformPage position: " + position);
+            }
+        });
+
+        mRadioButtonMemo.setChecked(true);
+        mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.rb_memo:
+                        mViewPager.setCurrentItem(0);
+                        break;
+                    case R.id.rb_note:
+                        mViewPager.setCurrentItem(1);
+                        break;
+                }
             }
         });
     }
