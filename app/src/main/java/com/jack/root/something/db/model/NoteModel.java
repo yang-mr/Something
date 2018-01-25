@@ -22,7 +22,11 @@ public class NoteModel extends RealmObject implements Parcelable {
     @Required
     private String content;
 
-    protected NoteModel(Parcel in) {
+    public NoteModel() {
+
+    }
+
+    public NoteModel(Parcel in) {
         id = in.readLong();
         title = in.readString();
         content = in.readString();

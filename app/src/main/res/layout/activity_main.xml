@@ -28,6 +28,42 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center" />
         </android.support.v7.widget.Toolbar>
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewpager_main"
+            android:layout_below="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <RadioGroup
+            android:id="@+id/radiogroup_main"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:background="@android:color/darker_gray"
+            android:layout_alignParentBottom="true"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RadioButton
+                android:id="@+id/rb_memo"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:button="@null"
+                android:gravity="center"
+                android:text="@string/main_radiobutton_memo"
+                android:drawableTop="@drawable/memo_radiobutton"
+                android:textColor="@drawable/radiobutton_text"
+                android:layout_height="wrap_content" />
+            <RadioButton
+                android:id="@+id/rb_note"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:button="@null"
+                android:gravity="center"
+                android:text="@string/main_radiobutton_note"
+                android:textColor="@drawable/radiobutton_text"
+                android:drawableTop="@drawable/note_radiobutton"
+                android:layout_height="wrap_content" />
+        </RadioGroup>
     </RelativeLayout>
     <android.support.design.widget.NavigationView
         android:id="@+id/navigationview"
