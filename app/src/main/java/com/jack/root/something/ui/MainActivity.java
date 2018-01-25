@@ -5,6 +5,7 @@ import android.animation.ValueAnimator;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -28,6 +29,9 @@ import com.orhanobut.logger.Logger;
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @ContentView(R.layout.activity_main)
 public class MainActivity extends BaseActivity {
@@ -124,7 +128,23 @@ public class MainActivity extends BaseActivity {
             }
         });
 
-        mViewPager.setAdapter(new MainViewPagerAdapter());  // init ViewPager adapter
+        List<Fragment> list = testViewpager();
+        mViewPager.setAdapter(new MainViewPagerAdapter(this.getSupportFragmentManager(), list));  // init ViewPager adapter
+
+        mViewPager.setPageTransformer(true, new ViewPager.PageTransformer() {
+            @Override
+            public void transformPage(View page, float position) {
+                // await test
+            }
+        });
+    }
+
+    private List<Fragment> testViewpager() {
+        List<Fragment> list = new ArrayList<>();
+        list.add(new MomeFragment());
+        list.add(new MomeFragment());
+        list.add(new MomeFragment());
+        return list;
     }
 
     @Override

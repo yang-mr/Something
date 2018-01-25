@@ -1,8 +1,8 @@
 package com.jack.root.something.ui.base;
 
-import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 
 /**
  * Created by jackyang on 18-1-15.

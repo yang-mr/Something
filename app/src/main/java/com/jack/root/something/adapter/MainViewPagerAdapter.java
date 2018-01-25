@@ -1,9 +1,14 @@
 package com.jack.root.something.adapter;
 
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.List;
 
 /**
  * Created by jack
@@ -11,19 +16,30 @@ import android.view.ViewGroup;
  * Desc:
  */
 
-public class MainViewPagerAdapter extends PagerAdapter {
+public class MainViewPagerAdapter extends FragmentPagerAdapter {
+    private List<Fragment> data;
+
+    public MainViewPagerAdapter(FragmentManager fm) {
+        super(fm);
+    }
+
+    public MainViewPagerAdapter(FragmentManager fm, List<Fragment> data) {
+        super(fm);
+        this.data = data;
+    }
+
     @Override
     public int getCount() {
-        return 0;
+        return data == null ? 0 : data.size();
     }
 
     @Override
     public boolean isViewFromObject(View view, Object object) {
-        return false;
+        return view == object;
     }
 
     @Override
-    public Object instantiateItem(ViewGroup container, int position) {
-        return super.instantiateItem(container, position);
+    public android.support.v4.app.Fragment getItem(int position) {
+        return data.get(position);
     }
 }
