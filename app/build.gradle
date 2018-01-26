@@ -54,5 +54,5 @@ dependencies {
     compile "com.orhanobut:logger:$rootProject.loggerVersion"
     compile "com.yanzhenjie:permission:$rootProject.permissionVersion"
     compile "com.android.support:design:$rootProject.designVersion"
-    compile "com.github.CymChad:$rootProject.BaseRecyclerViewAdapterHelperVersion"
+    compile "com.github.CymChad:BaseRecyclerViewAdapterHelper:$rootProject.BaseRecyclerViewAdapterHelperVersion"
 }
