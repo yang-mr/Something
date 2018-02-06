@@ -1,8 +1,12 @@
 package com.jack.root.something.db;
 
+import com.jack.root.something.db.model.MomeModel;
 import com.jack.root.something.db.model.NoteModel;
 
+import java.util.List;
+
 import io.realm.Realm;
+import io.realm.RealmResults;
 
 /**
  * Created by jack
@@ -73,6 +77,36 @@ public class DbManager {
             return false;
         }
         return true;
+    }
+
+    /**
+     Desc add note
+     18-1-24:下午4:38
+     Author jack
+     */
+    public static boolean addMome(final MomeModel mome) {
+        try {
+            mRealm.executeTransaction(new MyTransaction() {
+                @Override
+                public void execute(Realm realm) {
+                    super.execute(realm);
+                    realm.copyToRealm(mome);
+                }
+            });
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     Desc get all mome
+     18-2-6:上午10:49
+     Author jack
+    */
+    public static List<MomeModel> getAllMome() {
+        RealmResults<MomeModel> momeList = mRealm.where(MomeModel.class).findAll();
+        return momeList;
     }
 
     private static class MyTransaction implements Realm.Transaction {

@@ -20,6 +20,7 @@ import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,7 +37,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @ContentView(R.layout.activity_main)
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements View.OnClickListener {
     @ViewInject(R.id.drawerlayout)
     private DrawerLayout mDrawerlayout;
     @ViewInject(R.id.navigationview)
@@ -45,6 +46,9 @@ public class MainActivity extends BaseActivity {
     public Toolbar mToolbar;
     @ViewInject(R.id.iv_switch)
     public TextView mIvSwitch; // navigation switch
+
+    @ViewInject(R.id.iv_add)
+    public TextView mIvAdd; // add mome note
 
     @ViewInject(R.id.viewpager_main)
     private ViewPager mViewPager;
@@ -55,6 +59,8 @@ public class MainActivity extends BaseActivity {
     private RadioButton mRadioButtonMemo;
     @ViewInject(R.id.rb_note)
     private RadioButton mRadioButtonNote;
+    @ViewInject(R.id.layout_main)
+    private RelativeLayout mLayoutMain;
 
     private final static int TYPE_OPEN_DRAWER = 1;
     private final static int TYPE_CLOSE_DRAWER = 0;
@@ -115,6 +121,8 @@ public class MainActivity extends BaseActivity {
             }
         });
 
+        mIvAdd.setOnClickListener(this);
+
         mDrawerlayout.addDrawerListener(new DrawerLayout.DrawerListener() {
             @Override
             public void onDrawerSlide(View drawerView, float slideOffset) {
@@ -166,7 +174,6 @@ public class MainActivity extends BaseActivity {
 
     private List<Fragment> testViewpager() {
         List<Fragment> list = new ArrayList<>();
-        list.add(new MomeFragment());
         list.add(new MomeFragment());
         list.add(new MomeFragment());
         return list;
@@ -221,6 +228,16 @@ public class MainActivity extends BaseActivity {
                 animation.setDuration(1000);
                 animation.setFillAfter(true);
                 mIvSwitch.startAnimation(animation);
+                break;
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.iv_add:
+                mLayoutMain.setVisibility(View.GONE);
+                getSupportFragmentManager().beginTransaction().replace(R.id.layout_second, new AddMomeFragment()).commit();
                 break;
         }
     }

@@ -7,7 +7,12 @@
     android:layout_height="match_parent"
     tools:context="com.jack.root.something.ui.MainActivity"
     tools:openDrawer="start">
+    <FrameLayout
+        android:id="@+id/layout_second"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
     <RelativeLayout
+        android:id="@+id/layout_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <android.support.v7.widget.Toolbar
@@ -27,6 +32,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center" />
+            <TextView
+                android:id="@+id/iv_add"
+                android:drawableRight="@mipmap/add_icon"
+                android:layout_gravity="right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
         </android.support.v7.widget.Toolbar>
         <android.support.v4.view.ViewPager
             android:id="@+id/viewpager_main"

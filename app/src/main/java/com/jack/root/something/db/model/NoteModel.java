@@ -3,6 +3,7 @@ package com.jack.root.something.db.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import io.realm.RealmModel;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 import io.realm.annotations.Required;
@@ -12,7 +13,7 @@ import io.realm.annotations.Required;
  * On 18-1-24:下午4:33
  * Desc: note model
  */
-public class NoteModel extends RealmObject implements Parcelable {
+public class NoteModel implements Parcelable, RealmModel {
     @PrimaryKey
     private long id;
 
